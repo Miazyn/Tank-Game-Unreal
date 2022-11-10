@@ -3,6 +3,7 @@
 
 #include "ProjectileBase.h"
 #include "Kismet/GameplayStatics.h"
+#include "NiagaraComponent.h"
 
 
 // Sets default values
@@ -21,7 +22,19 @@ AProjectileBase::AProjectileBase()
 	InitialLifeSpan = 3.f;
 
 	ProjectileMesh->OnComponentHit.AddDynamic(this, &AProjectileBase::OnHit);
+	ProjectileTrail = CreateDefaultSubobject<UNiagaraComponent>(TEXT("Projectile Trail"));
+	ProjectileTrail->SetupAttachment(RootComponent);
 }
+
+// Called when the game starts or when spawned
+void AProjectileBase::BeginPlay()
+{
+	Super::BeginPlay();
+	if (LaunchSound) {
+		UGameplayStatics::PlaySoundAtLocation(this, LaunchSound, GetActorLocation());
+	}
+}
+
 
 void AProjectileBase::OnHit(UPrimitiveComponent* HitComp, AActor* OtherActor, UPrimitiveComponent* OtherComp,
 	FVector NormalImpulse, const FHitResult& Hit)
@@ -37,15 +50,13 @@ void AProjectileBase::OnHit(UPrimitiveComponent* HitComp, AActor* OtherActor, UP
 	{
 		UGameplayStatics::ApplyDamage(OtherActor, Damage, MyOwner->GetInstigatorController(), this, DamageType);
 		UGameplayStatics::SpawnEmitterAtLocation(this, HitParticle, GetActorLocation());
+
+		if (HitSound) {
+			UGameplayStatics::PlaySoundAtLocation(this, HitSound, GetActorLocation());
+		}
 	}
 	Destroy();
 }
 
-// Called when the game starts or when spawned
-void AProjectileBase::BeginPlay()
-{
-	Super::BeginPlay();
-	
-}
 
 

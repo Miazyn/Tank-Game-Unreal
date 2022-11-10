@@ -30,6 +30,13 @@ APawnBase::APawnBase()
 	HealthComponent = CreateDefaultSubobject<UHealthComponent>(TEXT("Health"));
 }
 
+void APawnBase::BeginPlay()
+{
+	Super::BeginPlay();
+	
+}
+
+
 void APawnBase::RotateTurretFunction(FVector LookAtTarget)
 {
 	FVector LookAtTargetClean = FVector(LookAtTarget.X,LookAtTarget.Y, TurretMesh->GetComponentLocation().Z);
@@ -54,17 +61,11 @@ void APawnBase::Fire()
 
 void APawnBase::HandleDestruction()
 {
-	UGameplayStatics::SpawnEmitterAtLocation(this, DeathParticle, GetActorLocation());
+	UGameplayStatics::SpawnEmitterAtLocation(this, DeathParticle, GetActorLocation(), FRotator(0.f,0.f,0.f), VFXScale);
 
 	//Destroy();
 }
 
-// Called when the game starts or when spawned
-void APawnBase::BeginPlay()
-{
-	Super::BeginPlay();
-	
-}
 
 // Called every frame
 void APawnBase::Tick(float DeltaTime)

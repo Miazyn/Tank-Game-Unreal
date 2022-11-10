@@ -7,6 +7,9 @@
 #include "GameFramework/ProjectileMovementComponent.h"
 #include "ProjectileBase.generated.h"
 
+
+class UNiagaraComponent;
+
 UCLASS()
 class GAMEXY_API AProjectileBase : public AActor
 {
@@ -36,8 +39,16 @@ public:
 	UPROPERTY(EditAnywhere, Category = "VFX")
 	UParticleSystem* HitParticle;
 
+	UPROPERTY(EditAnywhere, Category = "SFX")
+	USoundBase* HitSound;
+	UPROPERTY(EditAnywhere, Category = "SFX")
+	USoundBase* LaunchSound;
+
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
+private:
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Component", meta = (AllowPrivateAccess = true))
+	UNiagaraComponent* ProjectileTrail;
 };

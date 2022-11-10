@@ -44,6 +44,8 @@ private:
 
 	UPROPERTY(EditAnywhere, Category = "VFX")
 	UParticleSystem* DeathParticle;
+	UPROPERTY(EditAnywhere, Category = "VFX")
+	FVector VFXScale = FVector(8.f, 8.f, 8.f);
 
 protected:
 	// Called when the game starts or when spawned
