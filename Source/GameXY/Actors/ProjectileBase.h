@@ -9,6 +9,7 @@
 
 
 class UNiagaraComponent;
+class UMatineeCameraShake;
 
 UCLASS()
 class GAMEXY_API AProjectileBase : public AActor
@@ -38,6 +39,8 @@ public:
 	
 	UPROPERTY(EditAnywhere, Category = "VFX")
 	UParticleSystem* HitParticle;
+	UPROPERTY(EditAnywhere, Category = "VFX")
+	TSubclassOf<UMatineeCameraShake> HitCameraShake;
 
 	UPROPERTY(EditAnywhere, Category = "SFX")
 	USoundBase* HitSound;

@@ -4,6 +4,7 @@
 #include "ProjectileBase.h"
 #include "Kismet/GameplayStatics.h"
 #include "NiagaraComponent.h"
+#include "Camera/CameraShake.h"
 
 
 // Sets default values
@@ -54,6 +55,7 @@ void AProjectileBase::OnHit(UPrimitiveComponent* HitComp, AActor* OtherActor, UP
 		if (HitSound) {
 			UGameplayStatics::PlaySoundAtLocation(this, HitSound, GetActorLocation());
 		}
+		GetWorld()->GetFirstPlayerController()->ClientStartCameraShake(HitCameraShake);
 	}
 	Destroy();
 }

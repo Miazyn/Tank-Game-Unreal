@@ -7,6 +7,7 @@
 #include "Components/CapsuleComponent.h"
 #include "Kismet/GameplayStatics.h"
 #include "GameXY/Components/HealthComponent.h"
+#include "Camera/CameraShake.h"
 #include "GameXY/Actors/ProjectileBase.h"
 
 // Sets default values
@@ -61,8 +62,9 @@ void APawnBase::Fire()
 
 void APawnBase::HandleDestruction()
 {
-	UGameplayStatics::SpawnEmitterAtLocation(this, DeathParticle, GetActorLocation(), FRotator(0.f,0.f,0.f), VFXScale);
+	GetWorld()->GetFirstPlayerController()->ClientStartCameraShake(DeathCameraShake);
 
+	UGameplayStatics::SpawnEmitterAtLocation(this, DeathParticle, GetActorLocation(), FRotator(0.f,0.f,0.f), VFXScale);
 	//Destroy();
 }
 

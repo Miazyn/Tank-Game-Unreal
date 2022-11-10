@@ -9,6 +9,7 @@
 class UCapsuleComponent;
 class AProjectileBase;
 class UHealthComponent;
+class UMatineeCameraShake;
 
 UCLASS()
 class GAMEXY_API APawnBase : public APawn
@@ -46,6 +47,8 @@ private:
 	UParticleSystem* DeathParticle;
 	UPROPERTY(EditAnywhere, Category = "VFX")
 	FVector VFXScale = FVector(8.f, 8.f, 8.f);
+	UPROPERTY(EditAnywhere, Category = "VFX")
+	TSubclassOf<UMatineeCameraShake> DeathCameraShake;
 
 protected:
 	// Called when the game starts or when spawned
