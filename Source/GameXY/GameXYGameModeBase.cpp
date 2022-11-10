@@ -46,6 +46,7 @@ void AGameXYGameModeBase::HandleGameOver(bool PlayerWon)
 	if(PlayerControllerRef)
 	{
 		PlayerControllerRef->SetPlayerEnableState(false);
+		PlayerControllerRef->SetActorTickEnabled(false);
 	}
 }
 

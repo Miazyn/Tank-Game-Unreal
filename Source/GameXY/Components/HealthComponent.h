@@ -17,6 +17,12 @@ public:
 	// Sets default values for this component's properties
 	UHealthComponent();
 
+	UFUNCTION(BlueprintCallable)
+	float GetCurrentHealth();
+	UFUNCTION(BlueprintCallable)
+	float GetDefaultHealth();
+
+
 
 private:
 	UPROPERTY(EditAnywhere)
