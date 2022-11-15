@@ -21,7 +21,7 @@ public:
 	APawnBase();
 
 	void RotateTurretFunction(FVector LookAtTarget);
-	void Fire();
+	virtual void Fire();
 	virtual void HandleDestruction();
 
 private:

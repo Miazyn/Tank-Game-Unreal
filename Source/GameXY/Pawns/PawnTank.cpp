@@ -23,6 +23,8 @@ void APawnTank::BeginPlay()
 	Super::BeginPlay();
 
 	PlayerControllerRef = Cast<APlayerController>(GetController());
+	CurrentRotateSpeed = DefaultRotateSpeed;
+	CurrentMoveSpeed = DefaultMoveSpeed;
 }
 
 void APawnTank::HandleDestruction()
@@ -67,14 +69,42 @@ bool APawnTank::GetPlayerAlive()
 	return bIsPlayerAlive;
 }
 
+
+float APawnTank::GetDefaultMoveSpeed()
+{
+	return DefaultMoveSpeed;
+}
+
+float APawnTank::GetDefaultRotateSpeed()
+{
+	return DefaultRotateSpeed;
+}
+
+void APawnTank::IncreaseTankSpeed(float AddedMoveSpeed, float AddedRotateSpeed)
+{
+	UE_LOG(LogTemp, Error, TEXT("Added Speed"));
+	CurrentMoveSpeed += AddedMoveSpeed;
+	CurrentRotateSpeed += AddedRotateSpeed;
+
+	GetWorld()->GetTimerManager().SetTimer(
+		SpeedUpgradeTimerHandle,this, &APawnTank::ResetTankSpeed, SpeedTimer, false);
+}
+
+void APawnTank::ResetTankSpeed()
+{
+	UE_LOG(LogTemp, Error, TEXT("Reset Speed"));
+	CurrentRotateSpeed = DefaultRotateSpeed;
+	CurrentMoveSpeed = DefaultMoveSpeed;
+}
+
 void APawnTank::CalculateMovementInput(float Value)
 {
-	MoveDirection = FVector(Value * MoveSpeed * GetWorld()->DeltaTimeSeconds,0,0);
+	MoveDirection = FVector(Value * CurrentMoveSpeed * GetWorld()->DeltaTimeSeconds,0,0);
 }
 
 void APawnTank::CalculateRotationInput(float Value)
 {
-	float RotateAmount = Value * RotateSpeed * GetWorld()->DeltaTimeSeconds;
+	float RotateAmount = Value * CurrentRotateSpeed * GetWorld()->DeltaTimeSeconds;
 	FRotator Rotator = FRotator(0,RotateAmount,0);
 	RotationDirection =FQuat(Rotator);
 }
@@ -89,3 +119,4 @@ void APawnTank::Rotate()
 	AddActorLocalRotation(RotationDirection, true);
 
 }
+

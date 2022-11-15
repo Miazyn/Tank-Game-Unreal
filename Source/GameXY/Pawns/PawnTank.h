@@ -19,8 +19,16 @@ public:
 	APawnTank();
 	
 	virtual void HandleDestruction() override;
+	
+	void IncreaseTankSpeed(float AddedMoveSpeed, float AddedRotateSpeed);
+	void ResetTankSpeed();
 private:
+	UPROPERTY(EditAnywhere)
+	float SpeedTimer = 2.f;
 
+	FTimerHandle SpeedUpgradeTimerHandle;
+
+	
 	bool bIsPlayerAlive = true;
 	
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components", meta= (AllowPrivateAccess = true))
@@ -28,11 +36,21 @@ private:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components", meta= (AllowPrivateAccess = true))
 	UCameraComponent* Camera;
 
+	UPROPERTY(VisibleAnywhere)
+	float CurrentMoveSpeed = 0.f;
+	UPROPERTY(VisibleAnywhere)
+	float CurrentRotateSpeed = 0.f;
 	UPROPERTY(EditAnywhere)
-	float MoveSpeed = 200.f;
+	float DefaultMoveSpeed = 800.f;
 	UPROPERTY(EditAnywhere)
-	float RotateSpeed = 100.f;
+	float DefaultRotateSpeed = 150.f;
 
+	UFUNCTION(BlueprintCallable)
+	float GetDefaultMoveSpeed();
+	UFUNCTION(BlueprintCallable)
+	float GetDefaultRotateSpeed();
+
+	
 	FVector MoveDirection;
 	FQuat RotationDirection;
 

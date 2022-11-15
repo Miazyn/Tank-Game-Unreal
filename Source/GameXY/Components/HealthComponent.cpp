@@ -33,7 +33,14 @@ float UHealthComponent::GetDefaultHealth() {
 
 void UHealthComponent::AddHealth(float AddedHealth)
 {
-	UE_LOG(LogTemp, Error, TEXT("Adding Health to player"));
+	if(CurrentHealth < 100)
+	{
+		CurrentHealth += AddedHealth;
+		if(CurrentHealth > DefaultHealth)
+		{
+			CurrentHealth = DefaultHealth;
+		}
+	}
 }
 
 void UHealthComponent::TakeDamage(AActor* DamageActor, float Damage, const UDamageType* DamageType,
