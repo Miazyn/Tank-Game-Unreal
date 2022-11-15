@@ -5,6 +5,7 @@
 
 #include "Camera/CameraComponent.h"
 #include "GameFramework/SpringArmComponent.h"
+#include "GameXY/Components/HealthComponent.h"
 
 APawnTank::APawnTank()
 {
@@ -35,7 +36,6 @@ void APawnTank::HandleDestruction()
 	SetActorHiddenInGame(true);
 	SetActorTickEnabled(false);
 }
-
 void APawnTank::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
@@ -60,15 +60,71 @@ void APawnTank::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 
 	PlayerInputComponent->BindAxis("MoveForward", this, &APawnTank::CalculateMovementInput);
 	PlayerInputComponent->BindAxis("Turn", this, &APawnTank::CalculateRotationInput);
-	PlayerInputComponent->BindAction("Fire",IE_Pressed, this, &APawnTank::Fire);
+	PlayerInputComponent->BindAction("Fire",IE_Pressed, this, &APawnTank::HandleFiringMode);
 
+}
+
+void APawnTank::HandleFiringMode()
+{
+	if(!hasFiredRecently)
+	{
+		Fire();
+	}
+}
+void APawnTank::Fire()
+{
+	Super::Fire();
+	hasFiredRecently = true;
+	if(FastFireModeOn)
+	{
+		FireDefaultCooldown = FastFireCooldown;
+	}else
+	{
+		FireDefaultCooldown = FireCooldown;
+	}
+	GetWorld()->GetTimerManager().SetTimer(
+		FireCooldownTimerHandle,
+		this,
+		&APawnTank::ResetFiring,
+		FireDefaultCooldown,
+		false);
+}
+
+void APawnTank::ResetFiring()
+{
+	hasFiredRecently = false;
+}
+
+void APawnTank::SetFastFireValue(float _FastFireCooldown, float _PickUpTimer)
+{
+	FastFireCooldown = _FastFireCooldown;
+	FirePickUpTimer = _PickUpTimer;
+	SetFastFireMode();
+}
+void APawnTank::SetFastFireMode()
+{
+	FastFireModeOn = !FastFireModeOn;
+	if(FastFireModeOn)
+	{
+		UE_LOG(LogTemp, Error,TEXT("Fast Fire on"));
+		GetWorld()->GetTimerManager().SetTimer(
+		FiringPickUpTimerHandle,
+		this,
+		&APawnTank::SetFastFireMode,
+		FirePickUpTimer,
+		false);
+	}
+	else
+	{
+		UE_LOG(LogTemp, Error,TEXT("Fast Fire off"));
+		GetWorld()->GetTimerManager().ClearTimer(FiringPickUpTimerHandle);
+	}
 }
 
 bool APawnTank::GetPlayerAlive()
 {
 	return bIsPlayerAlive;
 }
-
 
 float APawnTank::GetDefaultMoveSpeed()
 {
@@ -119,4 +175,5 @@ void APawnTank::Rotate()
 	AddActorLocalRotation(RotationDirection, true);
 
 }
+
 

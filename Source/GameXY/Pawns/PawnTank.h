@@ -19,16 +19,17 @@ public:
 	APawnTank();
 	
 	virtual void HandleDestruction() override;
+	virtual void Fire() override;
 	
 	void IncreaseTankSpeed(float AddedMoveSpeed, float AddedRotateSpeed);
 	void ResetTankSpeed();
+	void SetFastFireValue(float _FastFireCooldown, float _PickUpTimer);
 private:
 	UPROPERTY(EditAnywhere)
 	float SpeedTimer = 2.f;
 
 	FTimerHandle SpeedUpgradeTimerHandle;
 
-	
 	bool bIsPlayerAlive = true;
 	
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components", meta= (AllowPrivateAccess = true))
@@ -60,6 +61,23 @@ private:
 	void Move();
 	void Rotate();
 
+	void HandleFiringMode();
+	void ResetFiring();
+	void SetFastFireMode();
+
+	bool FastFireModeOn = false;
+	bool hasFiredRecently = false;
+
+	FTimerHandle FiringPickUpTimerHandle;
+	float FirePickUpTimer = 0.f;
+	
+	FTimerHandle FireCooldownTimerHandle;
+	UPROPERTY(EditAnywhere)
+	float FireCooldown = 1.f;
+	
+	float FastFireCooldown = 0.f;
+	float FireDefaultCooldown = 0.f;
+	
 	APlayerController* PlayerControllerRef;
 	
 protected:
