@@ -8,6 +8,11 @@ AObstacleBase::AObstacleBase()
 {
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
+	BoxComponent = CreateDefaultSubobject<UBoxComponent>(TEXT("Box Component"));
+	RootComponent = BoxComponent;
+
+	ObstacleMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Obstacle Mesh"));
+	ObstacleMesh->SetupAttachment(RootComponent);
 
 }
 

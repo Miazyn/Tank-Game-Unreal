@@ -3,6 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "Components/BoxComponent.h"
 #include "GameFramework/Actor.h"
 #include "ObstacleBase.generated.h"
 
@@ -14,6 +15,11 @@ class GAMEXY_API AObstacleBase : public AActor
 public:	
 	// Sets default values for this actor's properties
 	AObstacleBase();
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components", meta= (AllowPrivateAccess = true))
+	UBoxComponent* BoxComponent;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components", meta= (AllowPrivateAccess = true))
+	UStaticMeshComponent* ObstacleMesh;
 
 protected:
 	// Called when the game starts or when spawned
