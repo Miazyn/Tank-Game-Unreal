@@ -22,7 +22,7 @@ public:
 	UFUNCTION(BlueprintCallable)
 	float GetDefaultHealth();
 
-
+	void AddHealth(float AddedHealth);
 
 private:
 	UPROPERTY(EditAnywhere)

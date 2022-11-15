@@ -31,6 +31,11 @@ float UHealthComponent::GetDefaultHealth() {
 	return DefaultHealth;
 }
 
+void UHealthComponent::AddHealth(float AddedHealth)
+{
+	UE_LOG(LogTemp, Error, TEXT("Adding Health to player"));
+}
+
 void UHealthComponent::TakeDamage(AActor* DamageActor, float Damage, const UDamageType* DamageType,
 	AController* InstigatedBy, AActor* DamageCauser)
 {
