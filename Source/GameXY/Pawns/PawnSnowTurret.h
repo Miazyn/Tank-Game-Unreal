@@ -3,6 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "PawnTurret.h"
 #include "GameFramework/Pawn.h"
 #include "PawnSnowTurret.generated.h"
 

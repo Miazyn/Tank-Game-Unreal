@@ -3,6 +3,8 @@
 
 #include "PawnSnowTurret.h"
 
+#include "Kismet/GameplayStatics.h"
+
 // Sets default values
 APawnSnowTurret::APawnSnowTurret()
 {
@@ -31,4 +33,5 @@ void APawnSnowTurret::SetupPlayerInputComponent(UInputComponent* PlayerInputComp
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
 
 }
+
 
