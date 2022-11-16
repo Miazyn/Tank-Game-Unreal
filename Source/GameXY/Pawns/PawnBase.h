@@ -23,7 +23,7 @@ public:
 	void RotateTurretFunction(FVector LookAtTarget);
 	virtual void Fire();
 	virtual void HandleDestruction();
-
+	
 private:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components", meta= (AllowPrivateAccess = true))
 	UCapsuleComponent* CapsuleComp;

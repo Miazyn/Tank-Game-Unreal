@@ -101,6 +101,7 @@ void APawnTank::SetFastFireValue(float _FastFireCooldown, float _PickUpTimer)
 	FirePickUpTimer = _PickUpTimer;
 	SetFastFireMode();
 }
+
 void APawnTank::SetFastFireMode()
 {
 	FastFireModeOn = !FastFireModeOn;
@@ -121,19 +122,33 @@ void APawnTank::SetFastFireMode()
 	}
 }
 
+void APawnTank::FreezeMovement(float _FreezeMultiplier, float _FreezeCooldown)
+{
+	if(!IsFrozen)
+	{
+		CurrentMoveSpeed = CurrentMoveSpeed * _FreezeMultiplier;
+		CurrentRotateSpeed = CurrentRotateSpeed * _FreezeMultiplier;
+		IsFrozen = true;
+		UE_LOG(LogTemp, Error,TEXT("Freeze is on"));
+	//Only make time longer?
+	GetWorld()->GetTimerManager().SetTimer(
+			FreezeTimeHandle,
+			this,
+			&APawnTank::UnfreezeMovement,
+			_FreezeCooldown,
+			false);
+	}
+}
+
+void APawnTank::UnfreezeMovement()
+{
+	IsFrozen = false;
+	ResetTankSpeed();
+}
+
 bool APawnTank::GetPlayerAlive()
 {
 	return bIsPlayerAlive;
-}
-
-float APawnTank::GetDefaultMoveSpeed()
-{
-	return DefaultMoveSpeed;
-}
-
-float APawnTank::GetDefaultRotateSpeed()
-{
-	return DefaultRotateSpeed;
 }
 
 void APawnTank::IncreaseTankSpeed(float AddedMoveSpeed, float AddedRotateSpeed)
