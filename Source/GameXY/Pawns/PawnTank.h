@@ -29,7 +29,12 @@ public:
 	UFUNCTION(BlueprintCallable)
 	void FreezeMovement(float _FreezeMultiplier, float _FreezeCooldown);
 
+	void SetUpInversion(float _InversionTime);
 private:
+	UPROPERTY(BlueprintReadWrite, meta = (AllowPrivateAccess = true))
+	bool IsControlInverted = false;
+	void InvertControls();
+	FTimerHandle InversionTimerHandle;
 	/*****FREEZE******/
 	FTimerHandle FreezeTimeHandle;
 	bool IsFrozen = false;
@@ -69,6 +74,9 @@ private:
 
 	void Move();
 	void Rotate();
+
+	void InvertedMove();
+	void InvertedRotate();
 
 	/*****FIREMODE******/
 	void HandleFiringMode();

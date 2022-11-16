@@ -21,9 +21,9 @@ public:
 	void StartFastFireMode(APawnTank* Tank);
 
 private:
-	UPROPERTY(EditAnywhere)
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = true))
 	float FastFireCooldown = .2f;
-	UPROPERTY(EditAnywhere)
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = true))
 	float PickUpCooldown = 5.f;
 	
 protected:

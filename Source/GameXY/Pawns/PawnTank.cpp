@@ -36,12 +36,20 @@ void APawnTank::HandleDestruction()
 	SetActorHiddenInGame(true);
 	SetActorTickEnabled(false);
 }
+
 void APawnTank::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
-	Rotate();
-	Move();
+	if(!IsControlInverted)
+	{
+		Rotate();
+		Move();
+	}else
+	{
+		InvertedRotate();
+		InvertedMove();
+	}
 
 	if(PlayerControllerRef)
 	{
@@ -71,6 +79,7 @@ void APawnTank::HandleFiringMode()
 		Fire();
 	}
 }
+
 void APawnTank::Fire()
 {
 	Super::Fire();
@@ -140,6 +149,22 @@ void APawnTank::FreezeMovement(float _FreezeMultiplier, float _FreezeCooldown)
 	}
 }
 
+void APawnTank::SetUpInversion(float _InversionTime)
+{
+	InvertControls();
+	GetWorld()->GetTimerManager().SetTimer(
+		InversionTimerHandle,
+		this,
+		&APawnTank::InvertControls,
+		_InversionTime,
+		false);
+}
+
+void APawnTank::InvertControls()
+{
+	IsControlInverted = !IsControlInverted;
+}
+
 void APawnTank::UnfreezeMovement()
 {
 	IsFrozen = false;
@@ -189,6 +214,16 @@ void APawnTank::Rotate()
 {
 	AddActorLocalRotation(RotationDirection, true);
 
+}
+
+void APawnTank::InvertedMove()
+{
+	AddActorLocalOffset(-MoveDirection, true);
+}
+
+void APawnTank::InvertedRotate()
+{
+	AddActorLocalRotation(-RotationDirection, true);
 }
 
 
