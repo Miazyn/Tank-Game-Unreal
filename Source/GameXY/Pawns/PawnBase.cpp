@@ -2,8 +2,6 @@
 
 
 #include "PawnBase.h"
-
-#include "BehaviorTree/BehaviorTreeTypes.h"
 #include "Components/CapsuleComponent.h"
 #include "Kismet/GameplayStatics.h"
 #include "GameXY/Components/HealthComponent.h"
