@@ -2,6 +2,7 @@
 
 
 #include "ObstacleBase.h"
+#include "Kismet/GameplayStatics.h"
 
 // Sets default values
 AObstacleBase::AObstacleBase()
@@ -15,6 +16,7 @@ AObstacleBase::AObstacleBase()
 	ObstacleMesh->SetupAttachment(RootComponent);
 
 }
+
 
 // Called when the game starts or when spawned
 void AObstacleBase::BeginPlay()
