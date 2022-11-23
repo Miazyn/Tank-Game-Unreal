@@ -29,6 +29,10 @@ public:
 	UFUNCTION(BlueprintCallable)
 	int32 GetTargetTurretCount();
 
+	UFUNCTION()
+	FString GetCurrentMap();
+
+	void LoadNextLevel(FString currentLevel);
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category="Game Loop")
 	int32 StartDelay = 3;

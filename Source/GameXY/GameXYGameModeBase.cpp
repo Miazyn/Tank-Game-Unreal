@@ -76,3 +76,18 @@ int32 AGameXYGameModeBase::GetTargetTurretCount()
 	return TurretActors.Num();
 }
 
+FString AGameXYGameModeBase::GetCurrentMap()
+{
+	FString CurrentMap = GetWorld()->GetMapName();
+	return  CurrentMap;
+}
+
+void AGameXYGameModeBase::LoadNextLevel(FString currentLevel)
+{
+	UE_LOG(LogTemp, Warning, TEXT("Loading next level"));
+
+	//LOAD NEXT LEVEL HERE
+	
+	//UGameplayStatics::OpenLevel((UObject*)GGameInstance, FName(TEXT("NewMap1")));
+}
+
