@@ -84,10 +84,12 @@ FString AGameXYGameModeBase::GetCurrentMap()
 
 void AGameXYGameModeBase::LoadNextLevel(FString currentLevel)
 {
-	UE_LOG(LogTemp, Warning, TEXT("Loading next level"));
-
-	//LOAD NEXT LEVEL HERE
 	
+	//LOAD NEXT LEVEL HERE
+	if(currentLevel == "Main_Map")
+	{
+		UE_LOG(LogTemp, Warning, TEXT("Loading next level"));
+	}
 	//UGameplayStatics::OpenLevel((UObject*)GGameInstance, FName(TEXT("NewMap1")));
 }
 
