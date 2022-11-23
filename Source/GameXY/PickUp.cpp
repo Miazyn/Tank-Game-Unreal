@@ -15,6 +15,8 @@ APickUp::APickUp()
 
 	BaseMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Base Mesh"));
 	BaseMesh->SetupAttachment((RootComponent));
+	
+	RotationComponent = CreateDefaultSubobject<URotatingMovementComponent>(TEXT("Rotation Movement"));
 }
 
 // Called when the game starts or when spawned

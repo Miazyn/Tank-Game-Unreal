@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
+#include "GameFramework/RotatingMovementComponent.h"
 #include "PickUp.generated.h"
 
 class UCapsuleComponent;
@@ -22,6 +23,9 @@ public:
 	UCapsuleComponent* CapsuleComp;
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components", meta= (AllowPrivateAccess = true))
 	UStaticMeshComponent* BaseMesh;
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components", meta= (AllowPrivateAccess = true))
+    URotatingMovementComponent* RotationComponent;
+	
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
