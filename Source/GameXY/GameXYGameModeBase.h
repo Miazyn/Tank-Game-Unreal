@@ -25,8 +25,10 @@ private:
 
 public:
 	void ActorDied(AActor* DeadActor);
-
+	
+	UFUNCTION(BlueprintCallable)
 	int32 GetTargetTurretCount();
+
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category="Game Loop")
 	int32 StartDelay = 3;
