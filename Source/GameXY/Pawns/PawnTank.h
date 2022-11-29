@@ -34,8 +34,10 @@ private:
 	UPROPERTY(BlueprintReadWrite, meta = (AllowPrivateAccess = true))
 	bool IsControlInverted = false;
 	void InvertControls();
+	UPROPERTY(BlueprintReadOnly, meta = (AllowPrivateAccess = true))
 	FTimerHandle InversionTimerHandle;
 	/*****FREEZE******/
+	UPROPERTY(BlueprintReadOnly, meta = (AllowPrivateAccess = true))
 	FTimerHandle FreezeTimeHandle;
 	bool IsFrozen = false;
 
@@ -44,6 +46,7 @@ private:
 	/*****SPEEDUP******/
 	UPROPERTY(EditAnywhere)
 	float SpeedTimer = 2.f;
+	UPROPERTY(BlueprintReadOnly, meta = (AllowPrivateAccess = true))
 	FTimerHandle SpeedUpgradeTimerHandle;
 	
 	/*****COMPONENTS******/
@@ -86,9 +89,11 @@ private:
 	bool FastFireModeOn = false;
 	bool hasFiredRecently = false;
 
+	UPROPERTY(BlueprintReadOnly, meta = (AllowPrivateAccess = true))
 	FTimerHandle FiringPickUpTimerHandle;
 	float FirePickUpTimer = 0.f;
 	
+	UPROPERTY(BlueprintReadOnly, meta = (AllowPrivateAccess = true))
 	FTimerHandle FireCooldownTimerHandle;
 	UPROPERTY(EditAnywhere)
 	float FireCooldown = 1.f;
