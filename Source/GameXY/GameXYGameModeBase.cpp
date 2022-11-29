@@ -41,31 +41,35 @@ void AGameXYGameModeBase::HandleGameOver(bool PlayerWon)
 	//Player dead -> gameover
 	//call blueprint version, gameover
 	GameOver(PlayerWon);
-	
-	PlayerTank->HandleDestruction();
-	if(PlayerControllerRef)
+	if(!PlayerWon)
 	{
-		PlayerControllerRef->SetPlayerEnableState(false);
-		PlayerControllerRef->SetActorTickEnabled(false);
+		PlayerTank->HandleDestruction();
+		if(PlayerControllerRef)
+		{
+			PlayerControllerRef->SetPlayerEnableState(false);
+			PlayerControllerRef->SetActorTickEnabled(false);
+		}
 	}
 }
 
 void AGameXYGameModeBase::ActorDied(AActor* DeadActor)
 {
 	//Player -> Lost
-	if(DeadActor == PlayerTank)
-	{
-		HandleGameOver(false);
-	}
-	else if(APawnTurret* DestroyedTurret = Cast<APawnTurret>(DeadActor))
-	{
-		DestroyedTurret->HandleDestruction();
-		TargetTurrets --;
-		if(TargetTurrets <= 0)
+	
+		if(DeadActor == PlayerTank)
 		{
-			HandleGameOver(true);
+			HandleGameOver(false);
 		}
-	}
+		else if(APawnTurret* DestroyedTurret = Cast<APawnTurret>(DeadActor))
+		{
+			DestroyedTurret->HandleDestruction();
+			TargetTurrets --;
+			if(TargetTurrets <= 0)
+			{
+				HandleGameOver(true);
+			}
+		}
+	
 }
 
 int32 AGameXYGameModeBase::GetTargetTurretCount()
